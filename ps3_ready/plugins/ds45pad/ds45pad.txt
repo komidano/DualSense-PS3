@@ -24,7 +24,8 @@ BT_PS_COMBO = SELECT_START
 BT_PS_CODE = -1
 BT_PS_MASK = 0
 ALLOW_INSERT_COMBO = 1
-INSERT_INTO_GAME = 1
+# Leave disabled: Syscall 573 insertion can prevent applications from loading.
+INSERT_INTO_GAME = 0
 
 # Diagnostics: KEEP AT 0! Setting to 1 enables diag_watch which steals input packets
 DIAG = 0
