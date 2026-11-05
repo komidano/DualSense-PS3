@@ -17,7 +17,9 @@ void ds45_config_defaults(ds45_config_t *c)
 	memset(c, 0, sizeof(*c));
 
 	c->enable = 1;
-	c->insert_into_game = 1;
+	/* Syscall 573 insertion can prevent applications from loading. Keep it
+	 * opt-in; the in-game hook handles compatibility without this mode. */
+	c->insert_into_game = 0;
 	c->allow_insert_combo = 1;
 
 	/* AUTO mode: raw USB when cabled, otherwise Bluetooth passthrough */

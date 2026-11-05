@@ -28,8 +28,8 @@ This major release completely solves previous Bluetooth limitations on PS3HEN / 
 2. **Native XMB PS Button Hold (Console Power Menu)**:
    - Holding the PS button ($\ge 250\text{ ms}$) in XMB natively brings up the console shutdown menu.
    - The menu remains open upon releasing the button, allowing full navigation, confirming shutdown/turn off controller with **Cross ($\times$)**, and canceling back to dashboard with **Circle ($\bigcirc$)**.
-3. **Full In-Game Recognition as Player 1 (Syscall 573)**:
-   - PS3 games listen to Port 0. Through kernel Syscall 573 (`INSERT_INTO_GAME`), your Bluetooth DualSense is mapped directly as **Player 1** in all games.
+3. **In-Game Recognition as Player 1**:
+   - The optional kernel Syscall 573 (`INSERT_INTO_GAME`) maps the virtual pad to **Player 1**, but is disabled by default because it can prevent applications from loading. The in-game hook provides compatibility without enabling it.
    - **START** (Options button) and **SELECT** (Create button) work natively.
    - Analog sticks feature calibrated circularity and deadzones, with full analog sensitivity on **L2 / R2**.
 4. **Interactive In-Game PS Menu Overlay**:
@@ -62,7 +62,7 @@ This major release completely solves previous Bluetooth limitations on PS3HEN / 
 * **Native Internal Bluetooth**: Connect directly to the PS3 built-in Bluetooth radio without any external USB dongles or adapters.
 * **Full In-Game PS Menu Navigation**: Over Bluetooth, the PS menu is fully interactive — navigate with D-Pad/analog sticks, confirm with **Cross**, cancel with **Circle**, and close with the **PS button**.
 * **Seamless Auto Mode (`MODE = AUTO`)**: Plug in via USB for charging & low-latency play, or unplug to seamlessly continue playing over wireless Bluetooth.
-* **Clean In-Game Input**: Operates cleanly as Player 1 in all titles (PS3 games, multiMAN, retro emulators) without duplicate player conflicts.
+* **Clean In-Game Input**: The in-game hook corrects input for supported titles without enabling the launch-sensitive Syscall 573 insertion mode.
 * **Controller Support**: Supports official Sony PS5 DualSense (`054c:0ce6`), DualSense Edge (`054c:0df2`), and DualShock 4 v1 & v2 (`054c:05c4`, `054c:09cc`).
 * **Firmware 4.93 Verified**: Thoroughly tested and verified on **PS3 Super Slim running PS3HEN 4.93**.
 * **CFW & PS3HEN Compatible**: Signed with 3.55 retail keys (`Revision 0A`, VSH Auth-ID `1070000052000001`).
@@ -146,7 +146,7 @@ The plugin behavior can be customized by editing `/dev_hdd0/plugins/ds45pad/ds45
 | `MODE` | `AUTO` | Transport mode: `AUTO` (USB when cabled, otherwise Bluetooth), `USB` (USB only), `BT` (Bluetooth only). |
 | `MAX_PADS` | `1` | Number of simultaneous controllers handled. |
 | `POLL_MS` | `10` | Input polling rate in milliseconds (10ms = 100Hz). |
-| `INSERT_INTO_GAME` | `1` | Injects pad inputs directly into games via Syscall 573. |
+| `INSERT_INTO_GAME` | `0` | Optional Syscall 573 insertion; leave disabled because it can prevent applications from loading. |
 | `ALLOW_INSERT_COMBO` | `1` | Allows toggling in-game injection using `CREATE + OPTIONS + R3`. |
 | `DIAG` | `0` | Diagnostic file logging (`0` = Off, `1` = On). Leave at 0 for optimal performance. |
 | `NOTIFY` | `1` | `1` = Show on-screen notification in XMB on load/attach. |
